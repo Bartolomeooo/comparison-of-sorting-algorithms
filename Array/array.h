@@ -21,6 +21,7 @@ public:
     // Modyfing methods
     void PushBack(const T& value);
     void PopBack();
+    void resize(int newSize);
 
     // Additional methods
     size_t size() const;

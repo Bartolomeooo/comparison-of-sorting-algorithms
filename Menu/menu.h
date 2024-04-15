@@ -7,6 +7,7 @@
 #include <vector>
 #include <chrono>
 #include "measurement.h"
+#include "test.h"
 
 class menu {
 public:

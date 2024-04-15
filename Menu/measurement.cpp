@@ -2,7 +2,6 @@
 #include "../Array/array.cpp"
 #include "../SortingAlgorithms/SortingAlgorithms.cpp"
 
-
 void measurement::measure() {
     int algorithmChoice;
     do {
@@ -44,8 +43,8 @@ void measurement::measure() {
                     array<int> arr(size);
                     measureSortingTime(SortingAlgorithms<int>::insertionSort, arr, distribution);
                 } else if (algorithmChoice == 2) {
-                    //array<float> arr(size);
-                    //measureSortingTime(SortingAlgorithms<float>::insertionSort, arr, distribution);
+                    array<float> arr(size);
+                    measureSortingTime(SortingAlgorithms<float>::insertionSort, arr, distribution);
                 } else if (algorithmChoice >= 3 && algorithmChoice <= 9) {
                     array<int> arr(size);
                     switch(algorithmChoice) {
@@ -77,8 +76,8 @@ void measurement::measure() {
     } while (algorithmChoice != 10);
 }
 
-//template <typename T>
-void measurement::fillArray(array<int>& arr, const std::string& distribution) {
+template <typename T>
+void measurement::fillArray(array<T>& arr, const std::string& distribution) {
     if (distribution == "Random") {
         arr.fillRandom();
     } else if (distribution == "Ascending") {
@@ -92,7 +91,8 @@ void measurement::fillArray(array<int>& arr, const std::string& distribution) {
     }
 }
 
-void measurement::measureSortingTime(void (*sortingFunction)(array<int>&), array<int>& arr, const std::string& distribution) {
+template <typename T>
+void measurement::measureSortingTime(void (*sortingFunction)(array<T>&), array<T>& arr, const std::string& distribution) {
     const int num_measurements = 10;
     double total_time = 0.0;
     for (int i = 0; i < num_measurements; ++i) {

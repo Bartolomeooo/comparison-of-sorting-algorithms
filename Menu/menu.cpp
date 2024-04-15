@@ -1,8 +1,9 @@
 #include "menu.h"
 #include "measurement.h"
+#include "measurement.cpp"
 #include "test.h"
-//#include "test.cpp"
-//#include "test.h"
+#include "test.cpp"
+
 
 void menu::showMenu() {
     int choice;
@@ -19,7 +20,7 @@ void menu::showMenu() {
                 measurement::measure();
                 break;
             case 2:
-                //test::run();
+                test::run();
                 break;
             case 3:
                 std::cout << "Exiting program...\n";

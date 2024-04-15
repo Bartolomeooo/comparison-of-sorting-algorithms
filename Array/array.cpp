@@ -1,4 +1,5 @@
 #include <random>
+#include <algorithm>
 #include "array.h"
 
 template <typename T>
@@ -101,6 +102,12 @@ void array<T>::fillPartiallySorted(double portion_sorted) {
     std::sort(data_, data_ + sorted_size); // Sortowanie tylko części tablicy
 }
 
+template <typename T>
+void array<T>::resize(int newSize) {
+    delete[] data_;  // Zwalnianie istniejącej tablicy
+    data_ = new T[newSize];  // Alokacja nowej tablicy o zadanym rozmiarze
+    size_ = newSize;  // Aktualizacja rozmiaru tablicy
+}
 
 template <typename T>
 bool array<T>::isSorted() {

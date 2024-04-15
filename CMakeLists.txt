@@ -14,4 +14,5 @@ add_executable(comparison_of_sorting_algorithms main.cpp
         Menu/test.h
         Menu/measurement.cpp
         Menu/measurement.h
+        main.cpp
 )

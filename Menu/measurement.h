@@ -9,8 +9,9 @@ public:
     static void measure();
 
 private:
-    static void fillArray(array<int>& arr, const std::string& distribution);
-    static void measureSortingTime(void (*sortingFunction)(array<int>&), array<int>& arr, const std::string& distribution);
+
+    template <typename T> static void fillArray(array<T>& arr, const std::string& distribution);
+    template <typename T> static void measureSortingTime(void (*sortingFunction)(array<T>&), array<T>& arr, const std::string& distribution);
     static void measureSortingTimeWithPivot(void (*sortingFunction)(array<int>&, int, int), array<int>& arr, int low, int high, const std::string& distribution);
 };
 

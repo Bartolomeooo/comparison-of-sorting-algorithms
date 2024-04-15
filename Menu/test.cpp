@@ -1,10 +1,12 @@
-/*#include "test.h"
+#include "test.h"
 #include <iostream>
 #include <fstream>
-#include <cstdlib>
 #include <string>
-#include "../Array/array.cpp"
-#include "../SortingAlgorithms/SortingAlgorithms.cpp"
+
+
+array<int> test::currentArrayInt(0);  // Początkowy rozmiar 0
+array<float> test::currentArrayFloat(0);  // Początkowy rozmiar 0
+bool test::useFloat = false;
 
 void test::run() {
     chooseDataType();
@@ -56,19 +58,16 @@ void test::loadFromFile() {
     std::cout << "Enter filename: ";
     std::cin >> filename;
     std::ifstream file(filename);
-
     if (file.is_open()) {
         int size;
         file >> size;
         if (useFloat) {
-            array<int> newArrayFloat(size);
-            currentArrayInt = newArrayFloat;
+            currentArrayFloat.resize(size);
             for (int i = 0; i < size; i++) {
                 file >> currentArrayFloat[i];
             }
         } else {
-            array<int> newArrayInt(size);
-            currentArrayInt = newArrayInt;
+            currentArrayInt.resize(size);
             for (int i = 0; i < size; i++) {
                 file >> currentArrayInt[i];
             }
@@ -82,20 +81,14 @@ void test::loadFromFile() {
 
 void test::generateArray() {
     int size;
-    std::cout << "Enter size of array: ";
+    std::cout << "Enter size of the array: ";
     std::cin >> size;
     if (useFloat) {
-        array<int> newArrayFloat(size);
-        currentArrayInt = newArrayFloat;
-        for (int i = 0; i < size; i++) {
-            currentArrayFloat[i] = static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/100.0));
-        }
+        currentArrayFloat.resize(size);
+        currentArrayFloat.fillRandom();
     } else {
-        array<int> newArrayInt(size);
-        currentArrayInt = newArrayInt;
-        for (int i = 0; i < size; i++) {
-            currentArrayInt[i] = rand() % 100;  // Random numbers between 0 and 99
-        }
+        currentArrayInt.resize(size);
+        currentArrayInt.fillRandom();
     }
     std::cout << "Array generated successfully.\n";
 }
@@ -188,4 +181,4 @@ void test::sortArray() {
         }
     }
     displayArray(); // Show sorted array
-}*/
+}

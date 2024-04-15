@@ -1,14 +1,14 @@
-/*#ifndef TEST_H
+#ifndef TEST_H
 #define TEST_H
 
-#include "../Array/array.h"  // Załóżmy, że array.cpp zawiera definicję i implementację dynamicznej tablicy
-#include "../SortingAlgorithms/SortingAlgorithms.h"  // Załóżmy, że zawiera implementacje algorytmów sortowania
+#include "../Array/array.h"  // Zakładamy, że array.cpp zawiera definicję i implementację dynamicznej tablicy
+#include "../SortingAlgorithms/SortingAlgorithms.h"  // Zakładamy, że zawiera implementacje algorytmów sortowania
 
 class test {
 private:
-    static array<int> currentArrayInt;
-    static array<float> currentArrayFloat;
-    static bool useFloat;  // Flag to check if using float array or int
+    static array<int> currentArrayInt;  // Aktualna tablica dla int
+    static array<float> currentArrayFloat;  // Aktualna tablica dla float
+    static bool useFloat;  // Flaga wskazująca czy używamy tablicy typu float
 
 public:
     static void run();
@@ -19,5 +19,4 @@ public:
     static void chooseDataType();
 };
 
-#endif // TEST_H*/
-
+#endif // TEST_H

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "comparison_of_sorting_algorithms::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-comparison_of_sorting_algorithms-Debug-9abef004340e719273c2.json",
+					"jsonFile" : "target-comparison_of_sorting_algorithms-Debug-8f02f87cf000fe6bbcba.json",
 					"name" : "comparison_of_sorting_algorithms",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/bartoszkawiak/CLionProjects/comparison-of-sorting-algorithms/cmake-build-debug",
-		"source" : "/Users/bartoszkawiak/CLionProjects/comparison-of-sorting-algorithms"
+		"build" : "C:/Users/kawia/CLionProjects/comparison-of-sorting-algorithms/cmake-build-debug",
+		"source" : "C:/Users/kawia/CLionProjects/comparison-of-sorting-algorithms"
 	},
 	"version" : 
 	{
