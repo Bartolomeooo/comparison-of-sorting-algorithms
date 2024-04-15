@@ -9,6 +9,7 @@ private:
     static array<int> currentArrayInt;  // Aktualna tablica dla int
     static array<float> currentArrayFloat;  // Aktualna tablica dla float
     static bool useFloat;  // Flaga wskazująca czy używamy tablicy typu float
+    template <typename T> static void displaySortedArray(const array<T>& arr);
 
 public:
     static void run();

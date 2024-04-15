@@ -15,7 +15,7 @@ void measurement::measure() {
                   << "7. Quicksort (Right Pivot)\n"
                   << "8. Quicksort (Middle Pivot)\n"
                   << "9. Quicksort (Random Pivot)\n"
-                  << "10. Exit\n"
+                  << "10. Exit\n\n"
                   << "Enter your choice: ";
         std::cin >> algorithmChoice;
 
@@ -73,6 +73,7 @@ void measurement::measure() {
                 }
             }
         }
+        std::cout << "\n";
     } while (algorithmChoice != 10);
 }
 

@@ -17,9 +17,10 @@ void test::run() {
                   << "2. Generate random array\n"
                   << "3. Display current array\n"
                   << "4. Sort current array\n"
-                  << "5. Exit\n"
+                  << "5. Exit\n\n"
                   << "Enter your choice: ";
         std::cin >> choice;
+        std::cout << "\n";
 
         switch (choice) {
             case 1:
@@ -47,9 +48,10 @@ void test::chooseDataType() {
     int choice;
     std::cout << "Choose data type:\n"
               << "1. Integer\n"
-              << "2. Float\n"
+              << "2. Float\n\n"
               << "Enter your choice: ";
     std::cin >> choice;
+    std::cout << "\n";
     useFloat = (choice == 2);
 }
 
@@ -83,6 +85,7 @@ void test::generateArray() {
     int size;
     std::cout << "Enter size of the array: ";
     std::cin >> size;
+    std::cout << "\n";
     if (useFloat) {
         currentArrayFloat.resize(size);
         currentArrayFloat.fillRandom();
@@ -90,7 +93,7 @@ void test::generateArray() {
         currentArrayInt.resize(size);
         currentArrayInt.fillRandom();
     }
-    std::cout << "Array generated successfully.\n";
+    std::cout << "Array generated successfully.\n\n";
 }
 
 void test::displayArray() {
@@ -103,7 +106,7 @@ void test::displayArray() {
             std::cout << currentArrayInt[i] << " ";
         }
     }
-    std::cout << "\n";
+    std::cout << "\n\n";
 }
 
 void test::sortArray() {
@@ -115,70 +118,86 @@ void test::sortArray() {
               << "5. Quicksort (Left Pivot)\n"
               << "6. Quicksort (Right Pivot)\n"
               << "7. Quicksort (Middle Pivot)\n"
-              << "8. Quicksort (Random Pivot)\n"
+              << "8. Quicksort (Random Pivot)\n\n"
               << "Enter your choice: ";
     int choice;
     std::cin >> choice;
+    std::cout << "\n";
 
     if (useFloat) {
-        // Assuming each sorting algorithm is templated to work with float as well
+        // Tworzenie lokalnej kopii
+        array<float> tempArray = currentArrayFloat;
         switch (choice) {
             case 1:
-                SortingAlgorithms<float>::insertionSort(currentArrayFloat);
+                SortingAlgorithms<float>::insertionSort(tempArray);
                 break;
             case 2:
-                SortingAlgorithms<float>::shellSortGap1(currentArrayFloat);
+                SortingAlgorithms<float>::shellSortGap1(tempArray);
                 break;
             case 3:
-                SortingAlgorithms<float>::shellSortGap2(currentArrayFloat);
+                SortingAlgorithms<float>::shellSortGap2(tempArray);
                 break;
             case 4:
-                SortingAlgorithms<float>::heapSort(currentArrayFloat);
+                SortingAlgorithms<float>::heapSort(tempArray);
                 break;
             case 5:
-                SortingAlgorithms<float>::quickSortLeftPivot(currentArrayFloat, 0, currentArrayFloat.size() - 1);
+                SortingAlgorithms<float>::quickSortLeftPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 6:
-                SortingAlgorithms<float>::quickSortRightPivot(currentArrayFloat, 0, currentArrayFloat.size() - 1);
+                SortingAlgorithms<float>::quickSortRightPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 7:
-                SortingAlgorithms<float>::quickSortMiddlePivot(currentArrayFloat, 0, currentArrayFloat.size() - 1);
+                SortingAlgorithms<float>::quickSortMiddlePivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 8:
-                SortingAlgorithms<float>::quickSortRandomPivot(currentArrayFloat, 0, currentArrayFloat.size() - 1);
+                SortingAlgorithms<float>::quickSortRandomPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             default:
                 std::cout << "Invalid choice.\n";
+                return;
         }
+        displaySortedArray(tempArray);
     } else {
+        // Tworzenie lokalnej kopii
+        array<int> tempArray = currentArrayInt;
         switch (choice) {
             case 1:
-                SortingAlgorithms<int>::insertionSort(currentArrayInt);
+                SortingAlgorithms<int>::insertionSort(tempArray);
                 break;
             case 2:
-                SortingAlgorithms<int>::shellSortGap1(currentArrayInt);
+                SortingAlgorithms<int>::shellSortGap1(tempArray);
                 break;
             case 3:
-                SortingAlgorithms<int>::shellSortGap2(currentArrayInt);
+                SortingAlgorithms<int>::shellSortGap2(tempArray);
                 break;
             case 4:
-                SortingAlgorithms<int>::heapSort(currentArrayInt);
+                SortingAlgorithms<int>::heapSort(tempArray);
                 break;
             case 5:
-                SortingAlgorithms<int>::quickSortLeftPivot(currentArrayInt, 0, currentArrayInt.size() - 1);
+                SortingAlgorithms<int>::quickSortLeftPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 6:
-                SortingAlgorithms<int>::quickSortRightPivot(currentArrayInt, 0, currentArrayInt.size() - 1);
+                SortingAlgorithms<int>::quickSortRightPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 7:
-                SortingAlgorithms<int>::quickSortMiddlePivot(currentArrayInt, 0, currentArrayInt.size() - 1);
+                SortingAlgorithms<int>::quickSortMiddlePivot(tempArray, 0, tempArray.size() - 1);
                 break;
             case 8:
-                SortingAlgorithms<int>::quickSortRandomPivot(currentArrayInt, 0, currentArrayInt.size() - 1);
+                SortingAlgorithms<int>::quickSortRandomPivot(tempArray, 0, tempArray.size() - 1);
                 break;
             default:
                 std::cout << "Invalid choice.\n";
+                return;
         }
+        displaySortedArray(tempArray);
     }
-    displayArray(); // Show sorted array
+    std::cout << "\n";
+}
+
+template <typename T>
+void test::displaySortedArray(const array<T>& arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << "\n";
 }

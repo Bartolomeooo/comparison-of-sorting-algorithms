@@ -11,9 +11,10 @@ void menu::showMenu() {
         std::cout << "Menu:\n"
                   << "1. Measurement\n"
                   << "2. Test\n"
-                  << "3. Exit\n"
+                  << "3. Exit\n\n"
                   << "Enter your choice: ";
         std::cin >> choice;
+        std::cout << "\n";
 
         switch(choice) {
             case 1:
@@ -24,6 +25,7 @@ void menu::showMenu() {
                 break;
             case 3:
                 std::cout << "Exiting program...\n";
+                exit(1);
                 break;
             default:
                 std::cout << "Invalid choice. Please try again.\n";

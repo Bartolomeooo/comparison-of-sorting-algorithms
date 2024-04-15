@@ -28,7 +28,7 @@ public:
     bool IsEmpty() const;
     bool isSorted();
 
-    // New methods for array filling
+    // Methods for array filling
     void fillRandom();
     void fillAscending();
     void fillDescending();
