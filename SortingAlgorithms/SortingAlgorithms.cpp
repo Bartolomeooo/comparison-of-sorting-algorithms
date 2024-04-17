@@ -57,19 +57,22 @@ void SortingAlgorithms<T>::insertionSort(array<T>& arr) {
 // Reshape into a heap data structure
 template <typename T>
 void SortingAlgorithms<T>::heapify(array<T>& arr, int n, int i) {
-    int parent = i;
+    int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
-    if (left < n && arr[left] > arr[parent])
-        parent = left;
+    // If the left child is larger than the root, update the largest
+    if (left < n && arr[left] > arr[largest])
+        largest = left;
 
-    if (right < n && arr[right] > arr[parent])
-        parent = right;
+    // If the right child is larger than the largest so far, update the largest
+    if (right < n && arr[right] > arr[largest])
+        largest = right;
 
-    if (parent != i) {
-        std::swap(arr[i], arr[parent]);
-        heapify(arr, n, parent);
+    // If the largest is not the root, swap with the root and continue heapifying
+    if (largest != i) {
+        std::swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
     }
 }
 
@@ -77,9 +80,12 @@ void SortingAlgorithms<T>::heapify(array<T>& arr, int n, int i) {
 template <typename T>
 void SortingAlgorithms<T>::heapSort(array<T>& arr) {
     int n = arr.size();
+
+    // Build a max heap from the array
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(arr, n, i);
 
+    // Move the current root to the end, reducing the heap size by one
     for (int i = n - 1; i > 0; i--) {
         std::swap(arr[0], arr[i]);
         heapify(arr, i, 0);
@@ -129,14 +135,16 @@ void SortingAlgorithms<T>::quickSortRandomPivot(array<T>& arr, int low, int high
 // Partition for quick sort
 template <typename T>
 int SortingAlgorithms<T>::partition(array<T>& arr, int low, int high) {
-    T pivot = arr[high];
+    T pivot = arr[high]; // The pivot element is taken to be the last element of the subarray
     int i = low - 1;
     for (int j = low; j < high; ++j) {
+        // If current element is smaller than the pivot, increment the smaller element index and swap it with the current element
         if (arr[j] < pivot) {
             ++i;
             std::swap(arr[i], arr[j]);
         }
     }
+    // Place the pivot element at the correct position by swapping it with the element at i+1
     std::swap(arr[i + 1], arr[high]);
     return i + 1;
 }
