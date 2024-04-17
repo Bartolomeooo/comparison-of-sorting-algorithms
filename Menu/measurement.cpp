@@ -97,7 +97,7 @@ void measurement::fillArray(array<T>& arr, const std::string& distribution) {
 // Measure sorting time
 template <typename T>
 void measurement::measureSortingTime(void (*sortingFunction)(array<T>&), array<T>& arr, const std::string& distribution) {
-    const int numberOfMeasurements = 100;
+    const int numberOfMeasurements = 5;
     double totalTime = 0.0;
     for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
@@ -113,7 +113,7 @@ void measurement::measureSortingTime(void (*sortingFunction)(array<T>&), array<T
 
 // Measure sorting time for algorithms with more arguments
 void measurement::measureSortingTimeWithPivot(void (*sortingFunction)(array<int>&, int, int), array<int>& arr, int low, int high, const std::string& distribution) {
-    const int numberOfMeasurements = 100;
+    const int numberOfMeasurements = 5;
     double totalTime = 0.0;
     for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
