@@ -32,7 +32,7 @@ public:
     void fillRandom();
     void fillAscending();
     void fillDescending();
-    void fillPartiallySorted(double portion_sorted);
+    void fillPartiallySorted(double portionToBeSorted);
 
 private:
     T* data_;

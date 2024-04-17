@@ -3,13 +3,12 @@
 #include <fstream>
 #include <string>
 
+template <typename T>
+array<T> test<T>::currentArray;
 
-array<int> test::currentArrayInt(0);  // Początkowy rozmiar 0
-array<float> test::currentArrayFloat(0);  // Początkowy rozmiar 0
-bool test::useFloat = false;
-
-void test::run() {
-    chooseDataType();
+// The main method
+template <typename T>
+void test<T>::run() {
     int choice;
     do {
         std::cout << "Menu:\n"
@@ -44,18 +43,9 @@ void test::run() {
     } while (choice != 5);
 }
 
-void test::chooseDataType() {
-    int choice;
-    std::cout << "Choose data type:\n"
-              << "1. Integer\n"
-              << "2. Float\n\n"
-              << "Enter your choice: ";
-    std::cin >> choice;
-    std::cout << "\n";
-    useFloat = (choice == 2);
-}
-
-void test::loadFromFile() {
+// Load data from a file
+template <typename T>
+void test<T>::loadFromFile() {
     std::string filename;
     std::cout << "Enter filename: ";
     std::cin >> filename;
@@ -63,53 +53,43 @@ void test::loadFromFile() {
     if (file.is_open()) {
         int size;
         file >> size;
-        if (useFloat) {
-            currentArrayFloat.resize(size);
-            for (int i = 0; i < size; i++) {
-                file >> currentArrayFloat[i];
-            }
-        } else {
-            currentArrayInt.resize(size);
-            for (int i = 0; i < size; i++) {
-                file >> currentArrayInt[i];
-            }
+
+        currentArray.resize(size);
+        for (int i = 0; i < size; i++) {
+            file >> currentArray[i];
         }
+
         file.close();
-        std::cout << "Array loaded successfully.\n";
+        std::cout << "Array loaded successfully.\n\n";
     } else {
-        std::cout << "Failed to open file.\n";
+        std::cout << "Failed to open file.\n\n";
     }
 }
 
-void test::generateArray() {
+// Generate data
+template <typename T>
+void test<T>::generateArray() {
     int size;
     std::cout << "Enter size of the array: ";
     std::cin >> size;
     std::cout << "\n";
-    if (useFloat) {
-        currentArrayFloat.resize(size);
-        currentArrayFloat.fillRandom();
-    } else {
-        currentArrayInt.resize(size);
-        currentArrayInt.fillRandom();
-    }
+    currentArray.resize(size);
+    currentArray.fillRandom();
     std::cout << "Array generated successfully.\n\n";
 }
 
-void test::displayArray() {
-    if (useFloat) {
-        for (int i = 0; i < currentArrayFloat.size(); i++) {
-            std::cout << currentArrayFloat[i] << " ";
-        }
-    } else {
-        for (int i = 0; i < currentArrayInt.size(); i++) {
-            std::cout << currentArrayInt[i] << " ";
-        }
+// Display the array
+template <typename T>
+void test<T>::displayArray() {
+    for (int i = 0; i < currentArray.size(); i++) {
+        std::cout << currentArray[i] << " ";
     }
     std::cout << "\n\n";
 }
 
-void test::sortArray() {
+// Sort the array
+template <typename T>
+void test<T>::sortArray() {
     std::cout << "Select sorting algorithm:\n"
               << "1. Insertion Sort (int)\n"
               << "2. Shell sort gap 1\n"
@@ -124,80 +104,59 @@ void test::sortArray() {
     std::cin >> choice;
     std::cout << "\n";
 
-    if (useFloat) {
-        // Tworzenie lokalnej kopii
-        array<float> tempArray = currentArrayFloat;
-        switch (choice) {
-            case 1:
-                SortingAlgorithms<float>::insertionSort(tempArray);
-                break;
-            case 2:
-                SortingAlgorithms<float>::shellSortGap1(tempArray);
-                break;
-            case 3:
-                SortingAlgorithms<float>::shellSortGap2(tempArray);
-                break;
-            case 4:
-                SortingAlgorithms<float>::heapSort(tempArray);
-                break;
-            case 5:
-                SortingAlgorithms<float>::quickSortLeftPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 6:
-                SortingAlgorithms<float>::quickSortRightPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 7:
-                SortingAlgorithms<float>::quickSortMiddlePivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 8:
-                SortingAlgorithms<float>::quickSortRandomPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            default:
-                std::cout << "Invalid choice.\n";
-                return;
-        }
-        displaySortedArray(tempArray);
-    } else {
-        // Tworzenie lokalnej kopii
-        array<int> tempArray = currentArrayInt;
-        switch (choice) {
-            case 1:
-                SortingAlgorithms<int>::insertionSort(tempArray);
-                break;
-            case 2:
-                SortingAlgorithms<int>::shellSortGap1(tempArray);
-                break;
-            case 3:
-                SortingAlgorithms<int>::shellSortGap2(tempArray);
-                break;
-            case 4:
-                SortingAlgorithms<int>::heapSort(tempArray);
-                break;
-            case 5:
-                SortingAlgorithms<int>::quickSortLeftPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 6:
-                SortingAlgorithms<int>::quickSortRightPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 7:
-                SortingAlgorithms<int>::quickSortMiddlePivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            case 8:
-                SortingAlgorithms<int>::quickSortRandomPivot(tempArray, 0, tempArray.size() - 1);
-                break;
-            default:
-                std::cout << "Invalid choice.\n";
-                return;
-        }
-        displaySortedArray(tempArray);
+
+    array<T> tempArray = currentArray; // Create a local copy of the array
+
+    switch (choice) {
+        case 1:
+            SortingAlgorithms<T>::insertionSort(tempArray);
+            break;
+        case 2:
+            SortingAlgorithms<T>::shellSortGap1(tempArray);
+            break;
+        case 3:
+            SortingAlgorithms<T>::shellSortGap2(tempArray);
+            break;
+        case 4:
+            SortingAlgorithms<T>::heapSort(tempArray);
+            break;
+        case 5:
+            SortingAlgorithms<T>::quickSortLeftPivot(tempArray, 0, tempArray.size() - 1);
+            break;
+        case 6:
+            SortingAlgorithms<T>::quickSortRightPivot(tempArray, 0, tempArray.size() - 1);
+            break;
+        case 7:
+            SortingAlgorithms<T>::quickSortMiddlePivot(tempArray, 0, tempArray.size() - 1);
+            break;
+        case 8:
+            SortingAlgorithms<T>::quickSortRandomPivot(tempArray, 0, tempArray.size() - 1);
+            break;
+        default:
+            std::cout << "Invalid choice.\n";
+            return;
     }
+    validateSorting(tempArray);
+    displaySortedArray(tempArray);
+
     std::cout << "\n";
 }
 
 template <typename T>
-void test::displaySortedArray(const array<T>& arr) {
+void test<T>::displaySortedArray(const array<T>& arr) {
     for (int i = 0; i < arr.size(); i++) {
         std::cout << arr[i] << " ";
     }
+    std::cout << "\n";
+}
+
+//
+template <typename T>
+void test<T>::validateSorting(array<T>& arr) {
+    if (arr.isSorted()) {
+        std::cout << "The array has been sorted successfully.\n";
+        return;
+    }
+    std::cout << "The array hasn't been sorted successfully.\n";
     std::cout << "\n";
 }

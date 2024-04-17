@@ -7,13 +7,14 @@
 #include <chrono>
 #include <algorithm>
 
+// Shell sort with a gap of n/2
 template <typename T>
 void SortingAlgorithms<T>::shellSortGap1(array<T>& arr) {
-    size_t n = arr.size();
-    for (size_t gap = n / 2; gap > 0; gap /= 2) {
-        for (size_t i = gap; i < n; i += 1) {
+    int n = arr.size();
+    for (int gap = n / 2; gap > 0; gap /= 2) {
+        for (int i = gap; i < n; i += 1) {
             T temp = arr[i];
-            size_t j;
+            int j;
             for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
                 arr[j] = arr[j - gap];
             }
@@ -22,13 +23,14 @@ void SortingAlgorithms<T>::shellSortGap1(array<T>& arr) {
     }
 }
 
+// Shell sort with a gap of n5/11
 template <typename T>
 void SortingAlgorithms<T>::shellSortGap2(array<T>& arr) {
-    size_t n = arr.size();
-    for (size_t gap = n / 2; gap > 0; gap = gap == 2 ? 1 : gap * 5 / 11) {
-        for (size_t i = gap; i < n; i += 1) {
+    int n = arr.size();
+    for (int gap = n / 2; gap > 0; gap = gap == 2 ? 1 : gap * 5 / 11) {
+        for (int i = gap; i < n; i += 1) {
             T temp = arr[i];
-            size_t j;
+            int j;
             for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
                 arr[j] = arr[j - gap];
             }
@@ -37,9 +39,10 @@ void SortingAlgorithms<T>::shellSortGap2(array<T>& arr) {
     }
 }
 
+// Insertion sort
 template <typename T>
 void SortingAlgorithms<T>::insertionSort(array<T>& arr) {
-    size_t n = arr.size();
+    int n = arr.size();
     for (int i = 1; i < n; ++i) {
         T key = arr[i];
         int j = i - 1;
@@ -51,11 +54,12 @@ void SortingAlgorithms<T>::insertionSort(array<T>& arr) {
     }
 }
 
+// Reshape into a heap data structure
 template <typename T>
-void SortingAlgorithms<T>::heapify(array<T>& arr, size_t n, size_t i) {
-    size_t largest = i;
-    size_t left = 2 * i + 1;
-    size_t right = 2 * i + 2;
+void SortingAlgorithms<T>::heapify(array<T>& arr, int n, int i) {
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
     if (left < n && arr[left] > arr[largest])
         largest = left;
@@ -69,9 +73,10 @@ void SortingAlgorithms<T>::heapify(array<T>& arr, size_t n, size_t i) {
     }
 }
 
+// Heap sort
 template <typename T>
 void SortingAlgorithms<T>::heapSort(array<T>& arr) {
-    size_t n = arr.size();
+    int n = arr.size();
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(arr, n, i);
 
@@ -81,6 +86,7 @@ void SortingAlgorithms<T>::heapSort(array<T>& arr) {
     }
 }
 
+// Quick sort with a left pivot
 template <typename T>
 void SortingAlgorithms<T>::quickSortLeftPivot(array<T>& arr, int low, int high) {
     if (low < high) {
@@ -90,6 +96,7 @@ void SortingAlgorithms<T>::quickSortLeftPivot(array<T>& arr, int low, int high) 
     }
 }
 
+// Quick sort with a right pivot
 template <typename T>
 void SortingAlgorithms<T>::quickSortRightPivot(array<T>& arr, int low, int high) {
     if (low < high) {
@@ -99,6 +106,7 @@ void SortingAlgorithms<T>::quickSortRightPivot(array<T>& arr, int low, int high)
     }
 }
 
+// Quick sort with a middle pivot
 template <typename T>
 void SortingAlgorithms<T>::quickSortMiddlePivot(array<T>& arr, int low, int high) {
     if (low < high) {
@@ -108,6 +116,7 @@ void SortingAlgorithms<T>::quickSortMiddlePivot(array<T>& arr, int low, int high
     }
 }
 
+// Quick sort with a random pivot
 template <typename T>
 void SortingAlgorithms<T>::quickSortRandomPivot(array<T>& arr, int low, int high) {
     if (low < high) {
@@ -117,6 +126,7 @@ void SortingAlgorithms<T>::quickSortRandomPivot(array<T>& arr, int low, int high
     }
 }
 
+// Partition for quick sort
 template <typename T>
 int SortingAlgorithms<T>::partition(array<T>& arr, int low, int high) {
     T pivot = arr[high];
@@ -131,24 +141,29 @@ int SortingAlgorithms<T>::partition(array<T>& arr, int low, int high) {
     return i + 1;
 }
 
+// Partition for quick sort with a random pivot
 template <typename T>
 int SortingAlgorithms<T>::partitionRandom(array<T>& arr, int low, int high) {
     srand(time(NULL));
-    size_t random = low + rand() % (high - low);
+    int random = low + rand() % (high - low);
     std::swap(arr[random], arr[high]);
     return partition(arr, low, high);
 }
 
+// Partition for quick sort with a left pivot
 template <typename T>
 int SortingAlgorithms<T>::partitionLeft(array<T>& arr, int low, int high) {
+    std::swap(arr[low], arr[high]);
     return partition(arr, low, high);
 }
 
+// Partition for quick sort with a right pivot
 template <typename T>
 int SortingAlgorithms<T>::partitionRight(array<T>& arr, int low, int high) {
     return partition(arr, low, high);
 }
 
+// Partition for quick sort with a middle pivot
 template <typename T>
 int SortingAlgorithms<T>::partitionMiddle(array<T>& arr, int low, int high) {
     int mid = low + (high - low) / 2;

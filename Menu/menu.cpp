@@ -21,14 +21,24 @@ void menu::showMenu() {
                 measurement::measure();
                 break;
             case 2:
-                test::run();
+                int choice;
+                std::cout << "Choose data type:\n"
+                          << "1. Integer\n"
+                          << "2. Float\n\n"
+                          << "Enter your choice: ";
+                std::cin >> choice;
+                std::cout << "\n";
+
+                if(choice == 1) test<int>::run();
+                else if(choice == 2) test<float>::run();
+                else std::cout << "Invalid choice. Please try again.\n\n";
+
                 break;
             case 3:
                 std::cout << "Exiting program...\n";
                 exit(1);
-                break;
             default:
-                std::cout << "Invalid choice. Please try again.\n";
+                std::cout << "Invalid choice. Please try again.\n\n";
         }
     } while(choice != 3);
 }

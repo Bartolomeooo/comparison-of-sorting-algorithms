@@ -2,12 +2,14 @@
 #include <algorithm>
 #include "array.h"
 
+// Constructor
 template <typename T>
 array<T>::array(size_t size) {
     data_ = new T[size];
     size_ = size;
 }
 
+// Copying constructor
 template <typename T>
 array<T>::array(const array& other) {
     data_ = new T[other.size_];
@@ -17,21 +19,25 @@ array<T>::array(const array& other) {
     }
 }
 
+// Destructor
 template <typename T>
 array<T>::~array() {
     delete[] data_;
 }
 
+// Method of access
 template <typename T>
 T& array<T>::operator[](size_t index) const {
     return data_[index];
 }
 
+// Method of access
 template <typename T>
 T& array<T>::operator[](size_t index) {
     return data_[index];
 }
 
+// Push back an element to the last position
 template <typename T>
 void array<T>::PushBack(const T& value) {
     T* new_data = new T[size_ + 1];
@@ -44,6 +50,7 @@ void array<T>::PushBack(const T& value) {
     size_++;
 }
 
+// Pop back the last element
 template <typename T>
 void array<T>::PopBack() {
     if (size_ > 0) {
@@ -57,58 +64,68 @@ void array<T>::PopBack() {
     }
 }
 
+// Return the size of the array
 template <typename T>
 size_t array<T>::size() const {
     return size_;
 }
 
+// Check if the array is empty
 template <typename T>
 bool array<T>::IsEmpty() const {
     return size_ == 0;
 }
 
+// Fill the array with random values
 template <typename T>
 void array<T>::fillRandom() {
     srand(time(nullptr));
     for (size_t i = 0; i < size_; ++i) {
-        data_[i] = rand();
-        //std::cout<<data_[i]<<std::endl;
+        data_[i] = ((float)rand() / RAND_MAX) * 10000; // Generate random values (maximum 10000)
     }
 }
 
+// Fill the array with ascending values
 template <typename T>
 void array<T>::fillAscending() {
-    fillRandom(); // Wykorzystanie istniejącej funkcji do wypełnienia tablicy losowymi danymi
-    std::sort(data_, data_ + size_); // Sortowanie tablicy w porządku rosnącym
+    fillRandom();
+    std::sort(data_, data_ + size_);
 }
 
+// Fill the array with descending values
 template <typename T>
 void array<T>::fillDescending() {
-    fillRandom(); // Wykorzystanie istniejącej funkcji do wypełnienia tablicy losowymi danymi
-    std::sort(data_, data_ + size_, std::greater<T>()); // Sortowanie tablicy w porządku malejącym
+    fillRandom();
+    std::sort(data_, data_ + size_, std::greater<T>());
 }
 
-
+// Fill the array with a portion of sorted data and fill the rest with higher unsorted values
 template <typename T>
-void array<T>::fillPartiallySorted(double portion_sorted) {
-    if (portion_sorted < 0 || portion_sorted > 1) {
+void array<T>::fillPartiallySorted(double portionToBeSorted) {
+    srand(time(nullptr));
+    if (portionToBeSorted < 0 || portionToBeSorted > 1) {
         std::cerr << "Error: Portion sorted must be in the range [0, 1]." << std::endl;
         return;
     }
 
-    fillRandom(); // Wypełnienie tablicy losowymi danymi
-
-    size_t sorted_size = static_cast<size_t>(portion_sorted * size_);
-    std::sort(data_, data_ + sorted_size); // Sortowanie tylko części tablicy
+    int sortedSize = portionToBeSorted * size_;
+    for (int i = 0; i < sortedSize; ++i) {
+        data_[i] = i + 1;
+    }
+    for (int i = sortedSize; i < size_; ++i) {
+        data_[i] = ((float)rand() / RAND_MAX) * (size_ - sortedSize) + sortedSize + 1;
+    }
 }
 
+// Resize the array
 template <typename T>
 void array<T>::resize(int newSize) {
-    delete[] data_;  // Zwalnianie istniejącej tablicy
-    data_ = new T[newSize];  // Alokacja nowej tablicy o zadanym rozmiarze
-    size_ = newSize;  // Aktualizacja rozmiaru tablicy
+    delete[] data_;
+    data_ = new T[newSize];
+    size_ = newSize;
 }
 
+// Check if the array is sorted
 template <typename T>
 bool array<T>::isSorted() {
     for(int i = 1; i < size_; i++) {

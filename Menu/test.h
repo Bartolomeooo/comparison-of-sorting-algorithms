@@ -4,20 +4,19 @@
 #include "../Array/array.h"  // Zakładamy, że array.cpp zawiera definicję i implementację dynamicznej tablicy
 #include "../SortingAlgorithms/SortingAlgorithms.h"  // Zakładamy, że zawiera implementacje algorytmów sortowania
 
+template <typename T>
 class test {
 private:
-    static array<int> currentArrayInt;  // Aktualna tablica dla int
-    static array<float> currentArrayFloat;  // Aktualna tablica dla float
-    static bool useFloat;  // Flaga wskazująca czy używamy tablicy typu float
-    template <typename T> static void displaySortedArray(const array<T>& arr);
-
-public:
-    static void run();
+    static array<T> currentArray;
+    static void displaySortedArray(const array<T>& arr);
     static void loadFromFile();
     static void generateArray();
     static void displayArray();
     static void sortArray();
-    static void chooseDataType();
+    static void validateSorting(array<T>& arr);
+
+public:
+    static void run();
 };
 
 #endif // TEST_H

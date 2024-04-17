@@ -16,7 +16,7 @@ public:
     static void quickSortRandomPivot(array<T>& arr, int low, int high);
 
 private:
-    static void heapify(array<T>& arr, size_t n, size_t i);
+    static void heapify(array<T>& arr, int n, int i);
     static int partition(array<T>& arr, int low, int high);
     static int partitionRandom(array<T>& arr, int low, int high);
     static int partitionLeft(array<T>& arr, int low, int high);

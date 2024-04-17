@@ -2,6 +2,7 @@
 #include "../Array/array.cpp"
 #include "../SortingAlgorithms/SortingAlgorithms.cpp"
 
+// The main method
 void measurement::measure() {
     int algorithmChoice;
     do {
@@ -21,11 +22,11 @@ void measurement::measure() {
 
         if(algorithmChoice == 10) break;
 
-        // Array sizes to benchmark
-        std::vector<int> array_sizes = {1000, 2000, 5000, 10000, 20000, 50000, 100000};
+        // Array sizes to measure
+        std::vector<int> arraySizes = {1000, 2000, 5000, 10000, 20000, 50000, 100000};
 
         // Initial data distributions
-        std::vector<std::string> data_distributions = {
+        std::vector<std::string> dataDistributions = {
                 "Random",
                 "Ascending",
                 "Descending",
@@ -33,10 +34,10 @@ void measurement::measure() {
                 "Partially Sorted (66%)"
         };
 
-        for (const auto& distribution : data_distributions) {
+        for (const auto& distribution : dataDistributions) {
             std::cout << "\nData distribution: " << distribution << "\n";
 
-            for (const auto& size : array_sizes) {
+            for (const auto& size : arraySizes) {
                 std::cout << size << ": ";
 
                 if (algorithmChoice == 1) {
@@ -77,6 +78,7 @@ void measurement::measure() {
     } while (algorithmChoice != 10);
 }
 
+// fill the array with a specific distribution
 template <typename T>
 void measurement::fillArray(array<T>& arr, const std::string& distribution) {
     if (distribution == "Random") {
@@ -92,36 +94,35 @@ void measurement::fillArray(array<T>& arr, const std::string& distribution) {
     }
 }
 
+// Measure sorting time
 template <typename T>
 void measurement::measureSortingTime(void (*sortingFunction)(array<T>&), array<T>& arr, const std::string& distribution) {
-    const int num_measurements = 10;
-    double total_time = 0.0;
-    for (int i = 0; i < num_measurements; ++i) {
+    const int numberOfMeasurements = 100;
+    double totalTime = 0.0;
+    for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto startTime = std::chrono::high_resolution_clock::now();
         sortingFunction(arr);
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        total_time += elapsed.count();
+        auto endTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = endTime - startTime;
+        totalTime += elapsed.count();
     }
-    double average_time = (total_time * 1000) / num_measurements;
-    std::cout << average_time << " ms\n";
-    //std::cout << arr.isSorted() << "\n";
+    double averageTime = (totalTime * 1000) / numberOfMeasurements;
+    std::cout << averageTime << " ms\n";
 }
 
+// Measure sorting time for algorithms with more arguments
 void measurement::measureSortingTimeWithPivot(void (*sortingFunction)(array<int>&, int, int), array<int>& arr, int low, int high, const std::string& distribution) {
-    const int num_measurements = 10;
-    double total_time = 0.0;
-    for (int i = 0; i < num_measurements; ++i) {
+    const int numberOfMeasurements = 100;
+    double totalTime = 0.0;
+    for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto startTime = std::chrono::high_resolution_clock::now();
         sortingFunction(arr, low, high);
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        total_time += elapsed.count();
-        //std::cout << arr.isSorted() << "\n";
+        auto endTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = endTime - startTime;
+        totalTime += elapsed.count();
     }
-    double average_time = (total_time * 1000) / num_measurements;
-    std::cout << average_time << " ms\n";
+    double averageTime = (totalTime * 1000) / numberOfMeasurements;
+    std::cout << averageTime << " ms\n";
 }
-

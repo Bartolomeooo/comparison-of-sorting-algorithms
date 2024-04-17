@@ -1,10 +1,8 @@
 #include "Menu/menu.h"
 #include "Menu/menu.cpp"
-//#include "Array/array.h"
-//#include "Array/array.cpp"
 
 int main() {
-    menu::showMenu(); // Wywołanie metody showMenu() z klasy menu
+    menu::showMenu(); // Call the menu
 
     array<float>arr(10);
     arr.fillRandom();
