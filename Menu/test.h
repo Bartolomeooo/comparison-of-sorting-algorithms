@@ -8,10 +8,9 @@ template <typename T>
 class test {
 private:
     static array<T> currentArray;
-    static void displaySortedArray(const array<T>& arr);
+    static void displayArray(const array<T>& arr);
     static void loadFromFile();
     static void generateArray();
-    static void displayArray();
     static void sortArray();
     static void validateSorting(array<T>& arr);
 

@@ -4,7 +4,7 @@
 
 // Constructor
 template <typename T>
-array<T>::array(size_t size) {
+array<T>::array(int size) {
     data_ = new T[size];
     size_ = size;
 }
@@ -14,7 +14,7 @@ template <typename T>
 array<T>::array(const array& other) {
     data_ = new T[other.size_];
     size_ = other.size_;
-    for (size_t i = 0; i < size_; i++) {
+    for (int i = 0; i < size_; i++) {
         data_[i] = other.data_[i];
     }
 }
@@ -27,26 +27,26 @@ array<T>::~array() {
 
 // Method of access
 template <typename T>
-T& array<T>::operator[](size_t index) const {
+T& array<T>::operator[](int index) const {
     return data_[index];
 }
 
 // Method of access
 template <typename T>
-T& array<T>::operator[](size_t index) {
+T& array<T>::operator[](int index) {
     return data_[index];
 }
 
 // Push back an element to the last position
 template <typename T>
 void array<T>::PushBack(const T& value) {
-    T* new_data = new T[size_ + 1];
-    for (size_t i = 0; i < size_; i++) {
-        new_data[i] = data_[i];
+    T* newData = new T[size_ + 1];
+    for (int i = 0; i < size_; i++) {
+        newData[i] = data_[i];
     }
-    new_data[size_] = value;
+    newData[size_] = value;
     delete[] data_;
-    data_ = new_data;
+    data_ = newData;
     size_++;
 }
 
@@ -55,18 +55,18 @@ template <typename T>
 void array<T>::PopBack() {
     if (size_ > 0) {
         size_--;
-        T* new_data = new T[size_];
-        for (size_t i = 0; i < size_; i++) {
-            new_data[i] = data_[i];
+        T* newData = new T[size_];
+        for (int i = 0; i < size_; i++) {
+            newData[i] = data_[i];
         }
         delete[] data_;
-        data_ = new_data;
+        data_ = newData;
     }
 }
 
 // Return the size of the array
 template <typename T>
-size_t array<T>::size() const {
+int array<T>::size() const {
     return size_;
 }
 
@@ -80,7 +80,7 @@ bool array<T>::IsEmpty() const {
 template <typename T>
 void array<T>::fillRandom() {
     srand(time(nullptr));
-    for (size_t i = 0; i < size_; ++i) {
+    for (int i = 0; i < size_; ++i) {
         data_[i] = ((float)rand() / RAND_MAX) * 10000; // Generate random values (maximum 10000)
     }
 }
@@ -120,6 +120,10 @@ void array<T>::fillPartiallySorted(double portionToBeSorted) {
 // Resize the array
 template <typename T>
 void array<T>::resize(int newSize) {
+    if (newSize < 0) {
+        std::cerr << "Error: New size cannot be negative." << std::endl;
+        return;
+    }
     delete[] data_;
     data_ = new T[newSize];
     size_ = newSize;

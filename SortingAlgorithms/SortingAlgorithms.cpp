@@ -23,7 +23,7 @@ void SortingAlgorithms<T>::shellSortGap1(array<T>& arr) {
     }
 }
 
-// Shell sort with a gap of n5/11
+// Shell sort with a gap of (5/11)*n
 template <typename T>
 void SortingAlgorithms<T>::shellSortGap2(array<T>& arr) {
     int n = arr.size();
@@ -57,19 +57,19 @@ void SortingAlgorithms<T>::insertionSort(array<T>& arr) {
 // Reshape into a heap data structure
 template <typename T>
 void SortingAlgorithms<T>::heapify(array<T>& arr, int n, int i) {
-    int largest = i;
+    int parent = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
-    if (left < n && arr[left] > arr[largest])
-        largest = left;
+    if (left < n && arr[left] > arr[parent])
+        parent = left;
 
-    if (right < n && arr[right] > arr[largest])
-        largest = right;
+    if (right < n && arr[right] > arr[parent])
+        parent = right;
 
-    if (largest != i) {
-        std::swap(arr[i], arr[largest]);
-        heapify(arr, n, largest);
+    if (parent != i) {
+        std::swap(arr[i], arr[parent]);
+        heapify(arr, n, parent);
     }
 }
 

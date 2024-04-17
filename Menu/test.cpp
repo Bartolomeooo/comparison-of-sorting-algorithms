@@ -29,7 +29,7 @@ void test<T>::run() {
                 generateArray();
                 break;
             case 3:
-                displayArray();
+                displayArray(currentArray);
                 break;
             case 4:
                 sortArray();
@@ -66,7 +66,8 @@ void test<T>::loadFromFile() {
     }
 }
 
-// Generate data
+// Generate an array with random values
+// The size of the array is specified by the user
 template <typename T>
 void test<T>::generateArray() {
     int size;
@@ -76,15 +77,6 @@ void test<T>::generateArray() {
     currentArray.resize(size);
     currentArray.fillRandom();
     std::cout << "Array generated successfully.\n\n";
-}
-
-// Display the array
-template <typename T>
-void test<T>::displayArray() {
-    for (int i = 0; i < currentArray.size(); i++) {
-        std::cout << currentArray[i] << " ";
-    }
-    std::cout << "\n\n";
 }
 
 // Sort the array
@@ -137,20 +129,21 @@ void test<T>::sortArray() {
             return;
     }
     validateSorting(tempArray);
-    displaySortedArray(tempArray);
+    displayArray(tempArray);
 
     std::cout << "\n";
 }
 
+// Display an array.
 template <typename T>
-void test<T>::displaySortedArray(const array<T>& arr) {
+void test<T>::displayArray(const array<T>& arr) {
     for (int i = 0; i < arr.size(); i++) {
         std::cout << arr[i] << " ";
     }
     std::cout << "\n";
 }
 
-//
+// Validate whether the sorted array is indeed in sorted order and inform the user of the result
 template <typename T>
 void test<T>::validateSorting(array<T>& arr) {
     if (arr.isSorted()) {

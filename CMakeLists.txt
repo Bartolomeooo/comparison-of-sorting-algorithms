@@ -16,3 +16,5 @@ add_executable(comparison_of_sorting_algorithms main.cpp
         Menu/measurement.h
         main.cpp
 )
+
+set(CMAKE_EXE_LINKER_FLAGS "-static")

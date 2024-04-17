@@ -8,15 +8,15 @@ class array {
 public:
     // Constructors
     array() = default;
-    explicit array(size_t size);
+    explicit array(int size);
     array(const array& other);
 
     // Destructor
     ~array();
 
     // Methods of access
-    T& operator[](size_t index) const;
-    T& operator[](size_t index);
+    T& operator[](int index) const;
+    T& operator[](int index);
 
     // Modyfing methods
     void PushBack(const T& value);
@@ -24,7 +24,7 @@ public:
     void resize(int newSize);
 
     // Additional methods
-    size_t size() const;
+    int size() const;
     bool IsEmpty() const;
     bool isSorted();
 
