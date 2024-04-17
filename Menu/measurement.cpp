@@ -2,7 +2,6 @@
 #include "../Array/array.cpp"
 #include "../SortingAlgorithms/SortingAlgorithms.cpp"
 
-
 void measurement::measure() {
     int algorithmChoice;
     do {
@@ -16,17 +15,17 @@ void measurement::measure() {
                   << "7. Quicksort (Right Pivot)\n"
                   << "8. Quicksort (Middle Pivot)\n"
                   << "9. Quicksort (Random Pivot)\n"
-                  << "10. Exit\n"
+                  << "10. Exit\n\n"
                   << "Enter your choice: ";
         std::cin >> algorithmChoice;
 
         if(algorithmChoice == 10) break;
 
         // Array sizes to benchmark
-        std::vector<int> array_sizes = {1000, 2000, 5000, 10000, 20000, 50000, 100000};
+        std::vector<int> arraySizes = {1000, 2000, 5000, 10000, 20000, 50000, 100000};
 
         // Initial data distributions
-        std::vector<std::string> data_distributions = {
+        std::vector<std::string> dataDistributions = {
                 "Random",
                 "Ascending",
                 "Descending",
@@ -34,18 +33,18 @@ void measurement::measure() {
                 "Partially Sorted (66%)"
         };
 
-        for (const auto& distribution : data_distributions) {
+        for (const auto& distribution : dataDistributions) {
             std::cout << "\nData distribution: " << distribution << "\n";
 
-            for (const auto& size : array_sizes) {
+            for (const auto& size : arraySizes) {
                 std::cout << size << ": ";
 
                 if (algorithmChoice == 1) {
                     array<int> arr(size);
                     measureSortingTime(SortingAlgorithms<int>::insertionSort, arr, distribution);
                 } else if (algorithmChoice == 2) {
-                    //array<float> arr(size);
-                    //measureSortingTime(SortingAlgorithms<float>::insertionSort, arr, distribution);
+                    array<float> arr(size);
+                    measureSortingTime(SortingAlgorithms<float>::insertionSort, arr, distribution);
                 } else if (algorithmChoice >= 3 && algorithmChoice <= 9) {
                     array<int> arr(size);
                     switch(algorithmChoice) {
@@ -74,11 +73,12 @@ void measurement::measure() {
                 }
             }
         }
+        std::cout << "\n";
     } while (algorithmChoice != 10);
 }
 
-//template <typename T>
-void measurement::fillArray(array<int>& arr, const std::string& distribution) {
+template <typename T>
+void measurement::fillArray(array<T>& arr, const std::string& distribution) {
     if (distribution == "Random") {
         arr.fillRandom();
     } else if (distribution == "Ascending") {
@@ -92,35 +92,34 @@ void measurement::fillArray(array<int>& arr, const std::string& distribution) {
     }
 }
 
-void measurement::measureSortingTime(void (*sortingFunction)(array<int>&), array<int>& arr, const std::string& distribution) {
-    const int num_measurements = 10;
-    double total_time = 0.0;
-    for (int i = 0; i < num_measurements; ++i) {
+template <typename T>
+void measurement::measureSortingTime(void (*sortingFunction)(array<T>&), array<T>& arr, const std::string& distribution) {
+    const int numberOfMeasurements = 10;
+    double totalTime = 0.0;
+    for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto startTime = std::chrono::high_resolution_clock::now();
         sortingFunction(arr);
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        total_time += elapsed.count();
+        auto endTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = endTime - startTime;
+        totalTime += elapsed.count();
     }
-    double average_time = (total_time * 1000) / num_measurements;
-    std::cout << average_time << " ms\n";
-    //std::cout << arr.isSorted() << "\n";
+    double averageTime = (totalTime * 1000) / numberOfMeasurements;
+    std::cout << averageTime << " ms\n";
 }
 
 void measurement::measureSortingTimeWithPivot(void (*sortingFunction)(array<int>&, int, int), array<int>& arr, int low, int high, const std::string& distribution) {
-    const int num_measurements = 10;
-    double total_time = 0.0;
-    for (int i = 0; i < num_measurements; ++i) {
+    const int numberOfMeasurements = 10;
+    double totalTime = 0.0;
+    for (int i = 0; i < numberOfMeasurements; ++i) {
         fillArray(arr, distribution); // Fill array with the specified distribution before each measurement
-        auto start_time = std::chrono::high_resolution_clock::now();
+        auto startTime = std::chrono::high_resolution_clock::now();
         sortingFunction(arr, low, high);
-        auto end_time = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end_time - start_time;
-        total_time += elapsed.count();
+        auto endTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = endTime - startTime;
+        totalTime += elapsed.count();
         //std::cout << arr.isSorted() << "\n";
     }
-    double average_time = (total_time * 1000) / num_measurements;
-    std::cout << average_time << " ms\n";
+    double averageTime = (totalTime * 1000) / numberOfMeasurements;
+    std::cout << averageTime << " ms\n";
 }
-

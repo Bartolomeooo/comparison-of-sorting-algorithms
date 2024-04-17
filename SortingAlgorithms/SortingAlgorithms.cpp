@@ -141,6 +141,7 @@ int SortingAlgorithms<T>::partitionRandom(array<T>& arr, int low, int high) {
 
 template <typename T>
 int SortingAlgorithms<T>::partitionLeft(array<T>& arr, int low, int high) {
+    std::swap(arr[low], arr[high]);
     return partition(arr, low, high);
 }
 

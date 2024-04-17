@@ -21,13 +21,14 @@ public:
     // Modyfing methods
     void PushBack(const T& value);
     void PopBack();
+    void resize(int newSize);
 
     // Additional methods
     size_t size() const;
     bool IsEmpty() const;
     bool isSorted();
 
-    // New methods for array filling
+    // Methods for array filling
     void fillRandom();
     void fillAscending();
     void fillDescending();
